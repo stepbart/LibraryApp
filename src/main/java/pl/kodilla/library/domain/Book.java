@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,18 @@ public class Book {
             targetEntity = Item.class,
             mappedBy = "book",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Item> items;
+
+    public Book(String title, String author, LocalDate published) {
+        this.title = title;
+        this.author = author;
+        this.published = published;
+        this.items = new ArrayList<>();
+    }
+
+    public void addItem(Item item){
+        this.items.add(item);
+    }
 }

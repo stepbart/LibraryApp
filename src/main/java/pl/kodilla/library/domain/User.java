@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,4 +33,11 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Borrow> userBorrows;
+
+    public User(String firstName, String secondName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.created = LocalDateTime.now();
+        this.userBorrows = new ArrayList<>();
+    }
 }

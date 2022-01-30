@@ -5,6 +5,7 @@ import pl.kodilla.library.enums.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Item {
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "items")
+    @JoinColumn(name = "BOOK_ID")
     private Book book;
 
     @OneToMany(
@@ -32,4 +33,11 @@ public class Item {
             fetch = FetchType.LAZY
     )
     private List<Borrow> itemBorrows;
+
+    public Item(Status status, Book book) {
+        this.status = status;
+        this.book = book;
+        this.itemBorrows = new ArrayList<>();
+    }
+
 }

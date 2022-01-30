@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Status {
 
     FREE(0),
-    RESERVED(1);
+    BORROWED(1);
 
     Status(int statusNumber) {
         this.statusNumber = statusNumber;

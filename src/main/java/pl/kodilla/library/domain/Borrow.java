@@ -1,6 +1,7 @@
 package pl.kodilla.library.domain;
 
 import lombok.*;
+import pl.kodilla.library.enums.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,10 +23,15 @@ public class Borrow {
     private LocalDateTime returned;
 
     @ManyToOne
-    @JoinColumn(name = "itemBorrows")
+    @JoinColumn(name = "ITEM_ID")
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "userBorrows")
+    @JoinColumn(name = "USER_ID")
     private User user;
+
+    public void returnBook(){
+        this.returned = LocalDateTime.now();
+        this.item.setStatus(Status.FREE);
+    }
 }
