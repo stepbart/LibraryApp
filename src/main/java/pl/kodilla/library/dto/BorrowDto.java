@@ -12,5 +12,7 @@ public class BorrowDto {
     private Long id;
     private LocalDateTime borrowed;
     private LocalDateTime returned;
+    private Long itemId;
+    private Long userId;
 
 }

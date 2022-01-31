@@ -1,23 +1,36 @@
 package pl.kodilla.library.controllers;
 
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kodilla.library.domain.Book;
+import pl.kodilla.library.dto.BookDto;
+import pl.kodilla.library.dto.ItemDto;
+import pl.kodilla.library.mappers.BookMapper;
+import pl.kodilla.library.mappers.ItemMapper;
+import pl.kodilla.library.services.BookService;
+
+import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/books")
 public class BookController {
 
-    @PostMapping("/addBook")
-    public ResponseEntity addBook(@RequestBody Book book){
-        System.out.println("Book added");
-        return new ResponseEntity(book,HttpStatus.OK);
+    private final BookService bookService;
+    private final BookMapper bookMapper;
+    private final ItemMapper itemMapper;
+
+    @PostMapping(value = "/addBook", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDto){
+        Book book = bookMapper.mapBookDtoToBook(bookDto);
+        Book savedBook = bookService.addBook(book);
+        return ResponseEntity.ok(bookMapper.mapBookToBookDto(savedBook));
     }
 
     @GetMapping("/{id}/items")
-    public ResponseEntity getAllItems(@PathVariable("id") Long bookId){
-        System.out.println("Items gotten");
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<List<ItemDto>> getAllItems(@PathVariable("id") Long bookId){
+        return ResponseEntity.ok(itemMapper.mapToItemDtoList(bookService.getItems(bookId)));
     }
 }

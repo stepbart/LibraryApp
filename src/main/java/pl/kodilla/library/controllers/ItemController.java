@@ -1,23 +1,30 @@
 package pl.kodilla.library.controllers;
 
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kodilla.library.domain.Item;
+import pl.kodilla.library.dto.ItemDto;
+import pl.kodilla.library.mappers.ItemMapper;
+import pl.kodilla.library.services.ItemService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/items")
 public class ItemController {
 
+    private final ItemService itemService;
+    private final ItemMapper itemMapper;
+
     @PostMapping("/addItem")
-    public ResponseEntity addItem(@RequestBody Item item){
-        System.out.println("Item added");
-        return new ResponseEntity(item, HttpStatus.OK);
+    public ResponseEntity<ItemDto> addItem(@RequestBody ItemDto itemDto){
+        Item item = itemMapper.mapItemDtoToItem(itemDto);
+        Item savedItem = itemService.addItem(item);
+        return ResponseEntity.ok(itemMapper.mapItemToItemDto(savedItem));
     }
 
     @PutMapping("/{id}/changeStatus")
-    public ResponseEntity changeItemStatus(@PathVariable("id") Long itemId, @RequestParam Integer statusNumber){
-        System.out.println("Status changed");
-        return new ResponseEntity(statusNumber,HttpStatus.OK);
+    public ResponseEntity<ItemDto> changeItemStatus(@PathVariable("id") Long itemId, @RequestParam Integer statusNumber){
+        return ResponseEntity.ok(itemMapper.mapItemToItemDto(itemService.changeStatus(itemId,statusNumber)));
     }
 }

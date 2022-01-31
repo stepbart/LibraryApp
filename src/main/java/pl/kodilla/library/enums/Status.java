@@ -12,5 +12,14 @@ public enum Status {
         this.statusNumber = statusNumber;
     }
 
+    public static Status getStatus(int value){
+        if (value==0){
+            return FREE;
+        }
+        else {
+            return BORROWED;
+        }
+    }
+
     private int statusNumber;
 }
