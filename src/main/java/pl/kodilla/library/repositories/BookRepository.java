@@ -7,7 +7,6 @@ import pl.kodilla.library.domain.Book;
 
 import java.util.List;
 
-@Transactional
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
 

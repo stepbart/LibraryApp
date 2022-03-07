@@ -15,16 +15,16 @@ import pl.kodilla.library.services.UserService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/v1.0/users")
 public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @PostMapping("/addUser")
+    @PostMapping
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
         User user = userMapper.mapUserDtoToUser(userDto);
         User savedUser = userService.addUser(user);
-        return ResponseEntity.ok(userMapper.mapUserDtoToUser(savedUser));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.mapUserDtoToUser(savedUser));
     }
 }

@@ -2,6 +2,7 @@ package pl.kodilla.library.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.kodilla.library.domain.Borrow;
 import pl.kodilla.library.enums.Status;
 import pl.kodilla.library.repositories.BorrowRepository;
@@ -18,6 +19,7 @@ public class BorrowService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public Borrow createNewBorrow(Long itemId, Long userId) {
         Borrow borrow = new Borrow();
         borrow.setItem(itemRepository.findById(itemId).orElseThrow());
@@ -27,6 +29,7 @@ public class BorrowService {
         return borrowRepository.save(borrow);
     }
 
+    @Transactional
     public Borrow returnBook(Long borrowId) {
         Borrow borrow = borrowRepository.findById(borrowId).orElseThrow();
         borrow.getItem().setStatus(Status.FREE);

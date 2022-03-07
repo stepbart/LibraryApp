@@ -8,7 +8,6 @@ import pl.kodilla.library.domain.Item;
 
 import java.util.List;
 
-@Transactional
 @Repository
 public interface ItemRepository extends CrudRepository<Item,Long> {
 

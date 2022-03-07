@@ -11,13 +11,13 @@ import pl.kodilla.library.services.BorrowService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/borrows")
+@RequestMapping("/v1.0/borrows")
 public class BorrowController {
 
     private final BorrowService borrowService;
     private final BorrowMapper borrowMapper;
 
-    @PostMapping("/borrowBook")
+    @PostMapping
     public ResponseEntity<BorrowDto> borrowBook(@RequestParam Long itemId, @RequestParam Long userId){
         return ResponseEntity.ok(borrowMapper.mapBorrowToBorrowDto(borrowService.createNewBorrow(itemId,userId)));
     }

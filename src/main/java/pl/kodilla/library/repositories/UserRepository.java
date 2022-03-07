@@ -7,7 +7,6 @@ import pl.kodilla.library.domain.User;
 
 import java.util.List;
 
-@Transactional
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
 

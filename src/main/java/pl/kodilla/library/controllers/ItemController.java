@@ -10,20 +10,20 @@ import pl.kodilla.library.services.ItemService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/items")
+@RequestMapping("/v1.0/items")
 public class ItemController {
 
     private final ItemService itemService;
     private final ItemMapper itemMapper;
 
-    @PostMapping("/addItem")
+    @PostMapping
     public ResponseEntity<ItemDto> addItem(@RequestBody ItemDto itemDto){
         Item item = itemMapper.mapItemDtoToItem(itemDto);
         Item savedItem = itemService.addItem(item);
         return ResponseEntity.ok(itemMapper.mapItemToItemDto(savedItem));
     }
 
-    @PutMapping("/{id}/changeStatus")
+    @PutMapping("/{id}")
     public ResponseEntity<ItemDto> changeItemStatus(@PathVariable("id") Long itemId, @RequestParam Integer statusNumber){
         return ResponseEntity.ok(itemMapper.mapItemToItemDto(itemService.changeStatus(itemId,statusNumber)));
     }

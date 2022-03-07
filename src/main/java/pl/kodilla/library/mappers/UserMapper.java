@@ -9,11 +9,8 @@ public class UserMapper {
 
     public User mapUserDtoToUser(final UserDto userDto){
         return new User(
-                userDto.getId(),
                 userDto.getFirstName(),
-                userDto.getSecondName(),
-                userDto.getCreated(),
-                userDto.getUserBorrows());
+                userDto.getSecondName());
     }
 
     public UserDto mapUserDtoToUser(final User user){

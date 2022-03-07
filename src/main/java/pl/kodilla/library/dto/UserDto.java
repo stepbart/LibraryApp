@@ -16,4 +16,10 @@ public class UserDto {
     private String secondName;
     private LocalDateTime created;
     private List<Borrow> userBorrows;
+
+    public UserDto(String firstName, String secondName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.created = created;
+    }
 }
